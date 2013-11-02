@@ -10,6 +10,6 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="battlecode.client.Main"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="bcode2013-scaffold"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="battlecode"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024m -XX:MaxPermSize=256m"/>
 </launchConfiguration>
