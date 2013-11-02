@@ -2,8 +2,9 @@ package team912.robots;
 
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
+import battlecode.common.GameObject;
+import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
-
 
 public class HQ extends BaseRobot {
 	public HQ(RobotController rc) {
@@ -13,7 +14,18 @@ public class HQ extends BaseRobot {
 
 	@Override
 	public void run() throws GameActionException {
-		this.getControl().spawn(Direction.values()[(int) (Math.random() * Direction.values().length)]);
+		if (this.getControl().isActive()) {
+			Direction direction;
+			GameObject obstacle;
+			do {
+				direction = Direction.values()[(int) (Math.random() * Direction
+						.values().length)];
+				MapLocation location = this.getControl().getLocation()
+						.add(direction);
+				obstacle = this.getControl().senseObjectAtLocation(location);
+			} while (obstacle != null);
+			this.getControl().spawn(direction);
+		}
 	}
 
 }
