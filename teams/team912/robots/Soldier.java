@@ -34,8 +34,9 @@ public class Soldier extends BaseRobot {
 		Team mineTeam = c.senseMine(c.getLocation().add(direction));
 		if(mineTeam != null && mineTeam != c.getTeam()){
 			c.defuseMine(c.getLocation().add(direction));
+		} else {
+			c.move(direction);
 		}
-		c.move(this.getPather().dirTo(mapper.getEnemyHQ()));
 	}
 	
 	public Pather getPather() {
