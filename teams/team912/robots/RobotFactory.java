@@ -2,7 +2,7 @@ package team912.robots;
 
 import java.util.HashMap;
 
-import team912.pathing.AStarPather;
+import team912.pathing.aStar.AStarPather;
 import battlecode.common.RobotController;
 
 public class RobotFactory {
@@ -11,7 +11,7 @@ public class RobotFactory {
 
 	public static BaseRobot create(RobotController rc) {
 		BaseRobot bot = null;
-		bots.get(rc.getRobot().getID());
+		bot = bots.get(rc.getRobot().getID());
 		if (bot == null) {
 			switch (rc.getType()) {
 			case SOLDIER:
