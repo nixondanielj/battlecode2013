@@ -1,5 +1,7 @@
 package team912.robots;
 
+import battlecode.common.Direction;
+import battlecode.common.GameActionException;
 import battlecode.common.RobotController;
 
 
@@ -10,8 +12,8 @@ public class HQ extends BaseRobot {
 	}
 
 	@Override
-	public void run() {
-		// TODO
+	public void run() throws GameActionException {
+		this.getControl().spawn(Direction.values()[(int) (Math.random() * Direction.values().length)]);
 	}
 
 }
