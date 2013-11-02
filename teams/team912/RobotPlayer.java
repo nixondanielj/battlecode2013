@@ -10,8 +10,10 @@ public class RobotPlayer {
 			try {
 				BaseRobot bot = RobotFactory.create(rc);
 				bot.run();
+				rc.yield();
 			} catch (Exception e) {
 				e.printStackTrace();
+				rc.yield();
 			}
 		}
 	}
