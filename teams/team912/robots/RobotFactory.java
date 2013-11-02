@@ -19,18 +19,25 @@ public class RobotFactory {
 			switch (rc.getType()) {
 			case SOLDIER:
 				bot = buildSoldier(rc);
+				break;
 			case ARTILLERY:
 				bot = new PlaceholderBot(rc);
+				break;
 			case GENERATOR:
 				bot = new PlaceholderBot(rc);
+				break;
 			case HQ:
 				bot = new HQ(rc);
+				break;
 			case MEDBAY:
 				bot = new PlaceholderBot(rc);
+				break;
 			case SHIELDS:
 				bot = new PlaceholderBot(rc);
+				break;
 			case SUPPLIER:
 				bot = new PlaceholderBot(rc);
+				break;
 			}
 			bots.put(rc.getRobot().getID(), bot);
 		}
