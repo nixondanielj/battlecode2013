@@ -2,7 +2,7 @@ package team912.robots;
 
 import java.util.HashMap;
 
-import team912.pathing.AStarPather;
+import team912.pathing.aStar.AStarPather;
 import battlecode.common.RobotController;
 
 public class RobotFactory {

@@ -1,5 +1,6 @@
-package team912.pathing;
+package team912.pathing.aStar;
 
+import team912.pathing.IPather;
 import battlecode.common.Direction;
 import battlecode.common.MapLocation;
 
