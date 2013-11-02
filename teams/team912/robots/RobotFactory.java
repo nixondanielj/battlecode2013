@@ -11,7 +11,7 @@ public class RobotFactory {
 
 	public static BaseRobot create(RobotController rc) {
 		BaseRobot bot = null;
-		bots.get(rc.getRobot().getID());
+		bot = bots.get(rc.getRobot().getID());
 		if (bot == null) {
 			switch (rc.getType()) {
 			case SOLDIER:
