@@ -1,11 +1,11 @@
-package team912old.robots;
+package team912.robots;
 
 import java.util.HashMap;
 
-import team912old.mapping.FirstMapper;
-import team912old.mapping.Mapper;
-import team912old.pathing.BadPather;
-import team912old.pathing.Pather;
+import team912.mapping.FirstMapper;
+import team912.mapping.Mapper;
+import team912.pathing.BadPather;
+import team912.pathing.Pather;
 import battlecode.common.RobotController;
 
 public class RobotFactory {

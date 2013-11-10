@@ -1,6 +1,6 @@
-package team912old.pathing;
+package team912.pathing;
 
-import team912old.BotComponent;
+import team912.BotComponent;
 import battlecode.common.Direction;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;

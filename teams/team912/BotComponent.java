@@ -1,4 +1,4 @@
-package team912old;
+package team912;
 
 import battlecode.common.RobotController;
 

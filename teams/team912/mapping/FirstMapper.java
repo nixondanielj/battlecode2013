@@ -1,8 +1,8 @@
-package team912old.mapping;
+package team912.mapping;
 
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
-import team912old.BotComponent;
+import team912.BotComponent;
 
 public class FirstMapper extends BotComponent implements Mapper {
 

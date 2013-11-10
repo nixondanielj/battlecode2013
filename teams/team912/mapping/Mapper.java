@@ -1,4 +1,4 @@
-package team912old.mapping;
+package team912.mapping;
 
 import battlecode.common.MapLocation;
 

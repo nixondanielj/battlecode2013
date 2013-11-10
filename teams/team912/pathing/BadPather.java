@@ -1,4 +1,4 @@
-package team912old.pathing;
+package team912.pathing;
 
 import battlecode.common.Direction;
 import battlecode.common.MapLocation;

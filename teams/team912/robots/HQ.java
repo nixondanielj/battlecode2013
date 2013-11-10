@@ -1,4 +1,4 @@
-package team912old.robots;
+package team912.robots;
 
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;

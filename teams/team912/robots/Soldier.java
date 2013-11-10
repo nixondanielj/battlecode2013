@@ -1,7 +1,7 @@
-package team912old.robots;
+package team912.robots;
 
-import team912old.mapping.Mapper;
-import team912old.pathing.Pather;
+import team912.mapping.Mapper;
+import team912.pathing.Pather;
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
 import battlecode.common.RobotController;

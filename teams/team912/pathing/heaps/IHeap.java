@@ -1,4 +1,4 @@
-package team912old.pathing.heaps;
+package team912.pathing.heaps;
 
 import battlecode.common.MapLocation;
 

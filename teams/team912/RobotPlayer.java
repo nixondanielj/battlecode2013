@@ -1,7 +1,7 @@
-package team912old;
+package team912;
 
-import team912old.robots.BaseRobot;
-import team912old.robots.RobotFactory;
+import team912.robots.BaseRobot;
+import team912.robots.RobotFactory;
 import battlecode.common.RobotController;
 
 public class RobotPlayer {
