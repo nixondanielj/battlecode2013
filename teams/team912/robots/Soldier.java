@@ -11,7 +11,7 @@ import battlecode.common.RobotController;
 import battlecode.common.Team;
 
 public class Soldier extends BaseRobot {
-	
+
 	private Pather pather;
 	private Mapper mapper;
 	private IStrategy strategy;
@@ -27,42 +27,41 @@ public class Soldier extends BaseRobot {
 	public void run() throws GameActionException {
 		RobotController c = this.getControl();
 		this.setStrategy(StrategyFactory.get(null, this.getStrategy()));
-		if(c.isActive()){
+		if (c.isActive()) {
 			this.getStrategy().doPreMoveAction(c);
-			move(c);
+			MapLocation target = getTarget();
+			if (target.equals(c.getLocation())) {
+				this.getStrategy().doAtTargetAction(c);
+			} else {
+				move(c, target);
+			}
 			this.getStrategy().doPostMoveAction(c);
 		} else {
 			this.getStrategy().doInactiveAction(c);
 		}
 	}
 
-	private void move(RobotController c) throws GameActionException {
+	private void move(RobotController c, MapLocation target)
+			throws GameActionException {
 		IStrategy strategy = this.getStrategy();
-		MapLocation target = getTarget();
-		if(target.equals(c.getLocation())){
-			strategy.doAtTargetAction(c);
+		Direction dir = this.getPather().dirTo(target);
+		MapLocation proposedLoc = c.getLocation().add(dir);
+		Team mineTeam = c.senseMine(proposedLoc);
+		while (strategy.shouldAvoid(mineTeam)) {
+			this.getPather().avoid(proposedLoc.add(dir));
+			dir = this.getPather().dirTo(target);
+			proposedLoc = c.getLocation().add(dir);
+			mineTeam = c.senseMine(proposedLoc);
+		}
+		if (mineTeam != null && strategy.shouldDefuse(mineTeam)) {
+			c.defuseMine(c.getLocation().add(dir));
 		} else {
-			Direction dir = this.getPather().dirTo(target);
-			MapLocation proposedLoc = c.getLocation().add(dir);
-			Team mineTeam = c.senseMine(proposedLoc);
-			while(strategy.shouldAvoid(mineTeam)){
-				this.getPather().avoid(proposedLoc.add(dir));
-				dir = this.getPather().dirTo(target);
-				proposedLoc = c.getLocation().add(dir);
-				mineTeam = c.senseMine(proposedLoc);
-			}
-			if(mineTeam != null && strategy.shouldDefuse(mineTeam)){
-				c.defuseMine(c.getLocation().add(dir));
-			} else {
-				c.move(dir);
-			}
+			c.move(dir);
 		}
 	}
-	
-	
-	
+
 	private MapLocation getTarget() throws GameActionException {
-		if(this.targetAge < 5 && this.target != null){
+		if (this.targetAge < 5 && this.target != null) {
 			this.targetAge++;
 		} else {
 			this.targetAge = 0;
@@ -70,11 +69,11 @@ public class Soldier extends BaseRobot {
 		}
 		return this.target;
 	}
-	
+
 	private int targetAge = 0;
-	
+
 	private MapLocation target;
-	
+
 	public Pather getPather() {
 		return pather;
 	}
@@ -96,7 +95,7 @@ public class Soldier extends BaseRobot {
 	}
 
 	public void setStrategy(IStrategy strategy) {
-		if(strategy != this.strategy){
+		if (strategy != this.strategy) {
 			this.getPather().clearAvoids();
 		}
 		this.strategy = strategy;
