@@ -1,5 +1,8 @@
 package team912.pathing;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import team912.BotComponent;
 import battlecode.common.Direction;
 import battlecode.common.MapLocation;
@@ -11,14 +14,29 @@ public abstract class Pather extends BotComponent {
 	}
 	
 	public abstract Direction dirTo(MapLocation location);
+	
+	private List<MapLocation> PlacesToAvoid;
 
-	public void avoid(MapLocation add) {
-		// TODO Auto-generated method stub
-		
+	public void avoid(MapLocation location) {
+		this.getPlacesToAvoid().add(location);
 	}
 
 	public void clearAvoids() {
-		// TODO Auto-generated method stub
-		
+		this.getPlacesToAvoid().clear();
+	}
+	
+	protected boolean canMove(Direction dir){
+		if(this.getPlacesToAvoid().contains(
+				this.getControl().getLocation().add(dir))){
+			return false;
+		}
+		return this.getControl().canMove(dir);
+	}
+
+	protected List<MapLocation> getPlacesToAvoid() {
+		if(this.PlacesToAvoid == null){
+			this.PlacesToAvoid = new ArrayList<MapLocation>();
+		}
+		return PlacesToAvoid;
 	}
 }
