@@ -20,4 +20,14 @@ public abstract class Pather extends BotComponent {
 	public void setCurrentLocation(MapLocation location){
 		this.currentLocation = location;
 	}
+
+	public void avoid(MapLocation add) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void clearAvoids() {
+		// TODO Auto-generated method stub
+		
+	}
 }

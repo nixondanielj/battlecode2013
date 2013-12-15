@@ -41,4 +41,15 @@ class BaseDefenseStrategy implements IStrategy {
 		
 	}
 
+	@Override
+	public void doAtTargetAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public MineHandling getMineHandling() {
+		return MineHandling.DefuseAll;
+	}
+
 }

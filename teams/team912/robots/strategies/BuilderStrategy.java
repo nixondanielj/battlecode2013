@@ -42,4 +42,16 @@ public class BuilderStrategy implements IStrategy {
 
 	}
 
+	@Override
+	public void doAtTargetAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public MineHandling getMineHandling() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
