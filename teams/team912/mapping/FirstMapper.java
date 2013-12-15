@@ -22,16 +22,21 @@ public class FirstMapper extends BotComponent implements Mapper {
 	}
 
 	@Override
-	public MapLocation getClosestMineableLocation(MapLocation location) throws GameActionException {
-		// if the given location is mineable and unoccupied, skip everything and return it
-		if(!this.isMineable(location) || this.isOccupied(location)){
+	public MapLocation getClosestMineableLocation(MapLocation location)
+			throws GameActionException {
+		// if the given location is mineable and unoccupied, skip everything and
+		// return it
+		if (!this.isMineable(location) || this.isOccupied(location)) {
 			List<MapLocation> potentialLocations = new ArrayList<MapLocation>();
-			for(int x = location.x - 3; x <= location.x + 3; x++){
-				for(int y = location.y - 3; y <= location.y + 3; y++){
+			for (int x = location.x - 3; x <= location.x + 3; x++) {
+				for (int y = location.y - 3; y <= location.y + 3; y++) {
 					MapLocation potentialLoc = new MapLocation(x, y);
-					// if location is mineable and unoccupied
-					if(this.isMineable(potentialLoc) && !this.isOccupied(potentialLoc)){
-						potentialLocations.add(potentialLoc);
+					if (this.getControl().canSenseSquare(potentialLoc)) {
+						// if location is mineable and unoccupied
+						if (this.isMineable(potentialLoc)
+								&& !this.isOccupied(potentialLoc)) {
+							potentialLocations.add(potentialLoc);
+						}
 					}
 				}
 			}
@@ -44,12 +49,12 @@ public class FirstMapper extends BotComponent implements Mapper {
 			Iterable<MapLocation> potentialLocations) {
 		MapLocation closest = null;
 		int shortestDist = 0;
-		for(MapLocation location : potentialLocations){
+		for (MapLocation location : potentialLocations) {
 			int distance = startLocation.distanceSquaredTo(location);
-			if(closest == null || distance < shortestDist){
+			if (closest == null || distance < shortestDist) {
 				closest = location;
 				shortestDist = distance;
-			} 
+			}
 		}
 		return closest;
 	}
