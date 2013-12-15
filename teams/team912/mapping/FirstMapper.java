@@ -23,7 +23,7 @@ public class FirstMapper extends BotComponent implements Mapper {
 
 	@Override
 	public MapLocation getClosestMineableLocation(MapLocation location) throws GameActionException {
-		// if the location is mineable, skip everything and return it
+		// if the given location is mineable, skip everything and return it
 		if(!this.isLocationMineable(location)){
 			List<MapLocation> potentialLocations = new ArrayList<MapLocation>();
 			for(int x = location.x - 3; x <= location.x + 3; x++){
