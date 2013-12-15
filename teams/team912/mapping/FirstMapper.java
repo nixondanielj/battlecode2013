@@ -5,6 +5,7 @@ import java.util.List;
 
 import team912.BotComponent;
 import battlecode.common.Direction;
+import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 
@@ -21,15 +22,18 @@ public class FirstMapper extends BotComponent implements Mapper {
 	}
 
 	@Override
-	public MapLocation getClosestMineableLocation(MapLocation location) {
+	public MapLocation getClosestMineableLocation(MapLocation location) throws GameActionException {
 		// if the location is mineable, skip everything and return it
 		if(!this.isLocationMineable(location)){
 			List<MapLocation> potentialLocations = new ArrayList<MapLocation>();
-			MapLocation[] minedLocations = this.getControl().senseMineLocations(location, 25, null);
-			for(MapLocation minedLocation : minedLocations){
-				// if the mine is not ours, add to potential locations
-				if(this.getControl().senseMine(minedLocation) != this.getControl().getTeam()){
-					potentialLocations.add(minedLocation);
+			for(int x = location.x - 3; x <= location.x + 3; x++){
+				for(int y = location.y - 3; y <= location.y + 3; y++){
+					MapLocation potentialLoc = new MapLocation(x, y);
+					// if location is mineable and unoccupied
+					if(this.isLocationMineable(potentialLoc) &&
+							this.getControl().senseObjectAtLocation(potentialLoc) == null){
+						potentialLocations.add(potentialLoc);
+					}
 				}
 			}
 			location = getClosestTo(location, potentialLocations);
