@@ -38,7 +38,7 @@ public class Soldier extends BaseRobot {
 
 	private void move(RobotController c) throws GameActionException {
 		IStrategy strategy = this.getStrategy();
-		MapLocation target = strategy.getTarget(this.getMapper());
+		MapLocation target = getTarget();
 		if(target.equals(c.getLocation())){
 			strategy.doAtTargetAction(c);
 		} else {
@@ -58,6 +58,22 @@ public class Soldier extends BaseRobot {
 			}
 		}
 	}
+	
+	
+	
+	private MapLocation getTarget() throws GameActionException {
+		if(this.targetAge < 5 && this.target != null){
+			this.targetAge++;
+		} else {
+			this.targetAge = 0;
+			this.target = this.getStrategy().getTarget(this.getMapper());
+		}
+		return this.target;
+	}
+	
+	private int targetAge = 0;
+	
+	private MapLocation target;
 	
 	public Pather getPather() {
 		return pather;
