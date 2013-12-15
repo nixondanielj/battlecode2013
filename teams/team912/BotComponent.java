@@ -16,6 +16,9 @@ public abstract class BotComponent {
 	}
 	
 	protected boolean isOccupied(MapLocation location) throws GameActionException{
+		if(this.getControl().getLocation() == location){
+			return false;
+		}
 		return this.getControl().senseObjectAtLocation(location) != null;
 	}
 	
