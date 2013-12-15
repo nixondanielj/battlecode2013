@@ -39,8 +39,8 @@ public class Soldier extends BaseRobot {
 	private void move(RobotController c) throws GameActionException {
 		IStrategy strategy = this.getStrategy();
 		MapLocation target = strategy.getTarget(this.getMapper());
-		if(target.equals(c.getLocation()) || target.isAdjacentTo(c.getLocation())){
-			strategy.doAtTargetAction();
+		if(target.equals(c.getLocation())){
+			strategy.doAtTargetAction(c);
 		} else {
 			Direction dir = this.getPather().dirTo(target);
 			MapLocation proposedLoc = c.getLocation().add(dir);

@@ -1,6 +1,7 @@
 package team912.robots.strategies;
 
 import team912.mapping.Mapper;
+import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 import battlecode.common.Team;
@@ -18,7 +19,7 @@ public interface IStrategy {
 	
 	void doInactiveAction(RobotController rc);
 
-	void doAtTargetAction();
+	void doAtTargetAction(RobotController c) throws GameActionException;
 
 	boolean shouldAvoid(Team mineTeam);
 

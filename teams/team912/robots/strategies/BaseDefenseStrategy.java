@@ -1,8 +1,10 @@
 package team912.robots.strategies;
 
 import team912.mapping.Mapper;
+import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
+import battlecode.common.Team;
 
 class BaseDefenseStrategy implements IStrategy {
 
@@ -42,14 +44,20 @@ class BaseDefenseStrategy implements IStrategy {
 	}
 
 	@Override
-	public void doAtTargetAction() {
-		// TODO Auto-generated method stub
-		
+	public void doAtTargetAction(RobotController c) throws GameActionException {
+		c.layMine();
 	}
 
 	@Override
-	public MineHandling getMineHandling() {
-		return MineHandling.DefuseAll;
+	public boolean shouldAvoid(Team mineTeam) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean shouldDefuse(Team mineTeam) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

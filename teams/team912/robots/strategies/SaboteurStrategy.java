@@ -3,6 +3,7 @@ package team912.robots.strategies;
 import team912.mapping.Mapper;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
+import battlecode.common.Team;
 
 class SaboteurStrategy implements IStrategy {
 
@@ -43,15 +44,22 @@ class SaboteurStrategy implements IStrategy {
 	}
 
 	@Override
-	public void doAtTargetAction() {
+	public void doAtTargetAction(RobotController c) {
 		// TODO Auto-generated method stub
 		
 	}
 
+
 	@Override
-	public MineHandling getMineHandling() {
+	public boolean shouldAvoid(Team mineTeam) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
+	}
+
+	@Override
+	public boolean shouldDefuse(Team mineTeam) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
