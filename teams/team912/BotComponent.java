@@ -12,7 +12,7 @@ public abstract class BotComponent {
 	
 	protected boolean isMineable(MapLocation location){
 		Team team = this.getControl().senseMine(location);
-		return team == this.getControl().getTeam();
+		return team != this.getControl().getTeam();
 	}
 	
 	protected boolean isOccupied(MapLocation location) throws GameActionException{
