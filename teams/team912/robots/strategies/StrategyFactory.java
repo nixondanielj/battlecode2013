@@ -6,7 +6,7 @@ public class StrategyFactory {
 	public static IStrategy get(ICommunicator comm, IStrategy oldStrategy){
 		IStrategy strategy = oldStrategy;
 		if(strategy == null){
-			if(Math.random() <= .25){
+			if(true){//Math.random() <= .25){
 				strategy = new BaseDefenseStrategy();
 			} else {
 				strategy = new SwarmStrategy();
