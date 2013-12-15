@@ -9,7 +9,7 @@ import battlecode.common.Team;
 class BaseDefenseStrategy implements IStrategy {
 
 	@Override
-	public MapLocation getTarget(Mapper mapper) {
+	public MapLocation getTarget(Mapper mapper) throws GameActionException {
 		return mapper.getClosestMineableLocation(mapper.getOwnHQLocation());
 	}
 
