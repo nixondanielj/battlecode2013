@@ -8,7 +8,7 @@ class BaseDefenseStrategy implements IStrategy {
 
 	@Override
 	public MapLocation getTarget(Mapper mapper) {
-		return null;
+		return mapper.getClosestMineableLocation(mapper.getOwnHQLocation());
 	}
 
 	@Override
