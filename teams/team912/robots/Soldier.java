@@ -42,7 +42,7 @@ public class Soldier extends BaseRobot {
 		// reset location
 		this.getPather().setCurrentLocation(c.getLocation());
 		// TODO change from mapper.getEnemyHQ to strategy.getTarget()
-		Direction direction = this.getPather().dirTo(mapper.getEnemyHQ());
+		Direction direction = this.getPather().dirTo(mapper.getEnemyHQLocation());
 		// eliminate mine if in the way
 		Team mineTeam = c.senseMine(c.getLocation().add(direction));
 		if(mineTeam != null && mineTeam != c.getTeam()){
