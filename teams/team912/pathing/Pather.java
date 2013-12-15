@@ -8,18 +8,9 @@ import battlecode.common.RobotController;
 public abstract class Pather extends BotComponent {
 	Pather(RobotController robot){
 		super(robot);
-		this.setCurrentLocation(robot.getLocation());
 	}
 	
 	public abstract Direction dirTo(MapLocation location);
-
-	private MapLocation currentLocation;
-	protected MapLocation getCurrentLocation(){
-		return this.currentLocation;
-	}
-	public void setCurrentLocation(MapLocation location){
-		this.currentLocation = location;
-	}
 
 	public void avoid(MapLocation add) {
 		// TODO Auto-generated method stub

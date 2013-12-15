@@ -12,7 +12,7 @@ public class BadPather extends Pather {
 
 	@Override
 	public Direction dirTo(MapLocation location) {
-		Direction direction = this.getCurrentLocation().directionTo(location);
+		Direction direction = this.getControl().getLocation().directionTo(location);
 		while(!this.getControl().canMove(direction)){
 			direction = direction.rotateLeft();
 		}
