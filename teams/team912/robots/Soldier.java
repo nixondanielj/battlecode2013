@@ -26,7 +26,7 @@ public class Soldier extends BaseRobot {
 	@Override
 	public void run() throws GameActionException {
 		RobotController c = this.getControl();
-		this.setStrategy(StrategyFactory.get(null, this.getStrategy()));
+		this.setStrategy(StrategyFactory.get(null, this.getStrategy(), c));
 		if (c.isActive()) {
 			this.getStrategy().doPreMoveAction(c);
 			MapLocation target = this.getStrategy().getTarget(this.getMapper());
