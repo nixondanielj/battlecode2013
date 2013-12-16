@@ -28,7 +28,7 @@ public class HQ extends BaseRobot {
 			} while (obstacle != null);
 			if (keepSpawning) {
 				this.getControl().spawn(direction);
-				keepSpawning = false;
+				//keepSpawning = false;
 			}
 		}
 	}
