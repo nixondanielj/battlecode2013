@@ -28,8 +28,8 @@ public class FirstMapper extends BotComponent implements Mapper {
 		// return it
 		if (!this.isMineable(location) || this.isOccupied(location)) {
 			List<MapLocation> potentialLocations = new ArrayList<MapLocation>();
-			for (int x = location.x - 3; x <= location.x + 3; x++) {
-				for (int y = location.y - 3; y <= location.y + 3; y++) {
+			for (int x = location.x - 3; x <= location.x + 3 || potentialLocations.size() < 5; x++) {
+				for (int y = location.y - 3; y <= location.y + 3 || potentialLocations.size() < 5; y++) {
 					MapLocation potentialLoc = new MapLocation(x, y);
 					if (this.getControl().canSenseSquare(potentialLoc)) {
 						// if location is mineable and unoccupied
