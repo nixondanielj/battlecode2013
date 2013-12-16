@@ -9,6 +9,7 @@ class NearbyLocationEnumerator {
 		setCurrent(current);
 	}
 	
+	//TODO finish this
 	public MapLocation getNext(){
 		if(!yChanging){
 			posX += xDir;
