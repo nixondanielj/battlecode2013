@@ -51,13 +51,13 @@ class SaboteurStrategy implements IStrategy {
 
 
 	@Override
-	public boolean shouldAvoid(Team mineTeam) {
+	public boolean shouldAvoid(Team mineTeam, Team ownTeam) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean shouldDefuse(Team mineTeam) {
+	public boolean shouldDefuse(Team mineTeam, Team ownTeam) {
 		// TODO Auto-generated method stub
 		return false;
 	}
