@@ -54,6 +54,19 @@ public class FirstMapper extends BotComponent implements Mapper {
 			if (closest == null || distance < shortestDist) {
 				closest = location;
 				shortestDist = distance;
+			} else if (distance == shortestDist) {
+				MapLocation myLoc = this.getControl().getLocation();
+				int distToLoc = myLoc.distanceSquaredTo(location);
+				int distToClosest = myLoc.distanceSquaredTo(closest);
+				if(distToLoc < distToClosest){
+					closest = location;
+				} else if (distToLoc == distToClosest){
+					distToLoc = location.distanceSquaredTo(this.getEnemyHQLocation());
+					distToClosest = closest.distanceSquaredTo(this.getEnemyHQLocation());
+					if(distToLoc < distToClosest){
+						closest = location;
+					}
+				}
 			}
 		}
 		return closest;
