@@ -26,7 +26,7 @@ public class HQ extends BaseRobot {
 						.add(direction);
 				obstacle = this.getControl().senseObjectAtLocation(location);
 			} while (obstacle != null);
-			if (keepSpawning) {
+			if (keepSpawning && this.getControl().getTeamPower() > 50) {
 				this.getControl().spawn(direction);
 				//keepSpawning = false;
 			}
