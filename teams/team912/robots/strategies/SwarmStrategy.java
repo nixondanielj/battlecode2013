@@ -9,8 +9,7 @@ class SwarmStrategy implements IStrategy {
 
 	@Override
 	public MapLocation getTarget(Mapper mapper) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.getEnemyHQLocation();
 	}
 
 	@Override
