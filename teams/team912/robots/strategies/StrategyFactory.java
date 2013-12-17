@@ -1,12 +1,14 @@
 package team912.robots.strategies;
 
 import team912.robots.communicator.ICommunicator;
+import battlecode.common.RobotController;
 
 public class StrategyFactory {
-	public static IStrategy get(ICommunicator comm, IStrategy oldStrategy){
+	public static IStrategy get(ICommunicator comm, IStrategy oldStrategy, RobotController rc){
 		IStrategy strategy = oldStrategy;
 		if(strategy == null){
-			if(Math.random() <= .25){
+			double rn = rc.getTeamPower() % 1;
+			if(rn <= .25){
 				strategy = new BaseDefenseStrategy();
 			} else {
 				strategy = new SwarmStrategy();

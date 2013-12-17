@@ -6,11 +6,12 @@ import team912.robots.strategies.IStrategy;
 import team912.robots.strategies.StrategyFactory;
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
+import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 import battlecode.common.Team;
 
 public class Soldier extends BaseRobot {
-	
+
 	private Pather pather;
 	private Mapper mapper;
 	private IStrategy strategy;
@@ -25,11 +26,14 @@ public class Soldier extends BaseRobot {
 	@Override
 	public void run() throws GameActionException {
 		RobotController c = this.getControl();
-		this.setStrategy(StrategyFactory.get(null, this.getStrategy()));
-		if(c.isActive()){
+		this.setStrategy(StrategyFactory.get(null, this.getStrategy(), c));
+		if (c.isActive()) {
 			this.getStrategy().doPreMoveAction(c);
-			if(move(c)){
-				this.getStrategy().doNoMoveAction(c);
+			MapLocation target = this.getStrategy().getTarget(this.getMapper());
+			if (target.equals(c.getLocation())) {
+				this.getStrategy().doAtTargetAction(c);
+			} else {
+				move(c, target);
 			}
 			this.getStrategy().doPostMoveAction(c);
 		} else {
@@ -37,23 +41,25 @@ public class Soldier extends BaseRobot {
 		}
 	}
 
-	private boolean move(RobotController c) throws GameActionException {
-		boolean didMove = false;
-		// reset location
-		this.getPather().setCurrentLocation(c.getLocation());
-		// TODO change from mapper.getEnemyHQ to strategy.getTarget()
-		Direction direction = this.getPather().dirTo(mapper.getEnemyHQ());
-		// eliminate mine if in the way
-		Team mineTeam = c.senseMine(c.getLocation().add(direction));
-		if(mineTeam != null && mineTeam != c.getTeam()){
-			c.defuseMine(c.getLocation().add(direction));
-		} else {
-			c.move(direction);
-			didMove = true;
+	private void move(RobotController c, MapLocation target)
+			throws GameActionException {
+		IStrategy strategy = this.getStrategy();
+		Direction dir = this.getPather().dirTo(target);
+		MapLocation proposedLoc = c.getLocation().add(dir);
+		Team mineTeam = c.senseMine(proposedLoc);
+		while (strategy.shouldAvoid(mineTeam, c.getTeam())) {
+			this.getPather().avoid(proposedLoc.add(dir));
+			dir = this.getPather().dirTo(target);
+			proposedLoc = c.getLocation().add(dir);
+			mineTeam = c.senseMine(proposedLoc);
 		}
-		return didMove;
+		if (mineTeam != null && strategy.shouldDefuse(mineTeam, c.getTeam())) {
+			c.defuseMine(c.getLocation().add(dir));
+		} else {
+			c.move(dir);
+		}
 	}
-	
+
 	public Pather getPather() {
 		return pather;
 	}
@@ -75,6 +81,9 @@ public class Soldier extends BaseRobot {
 	}
 
 	public void setStrategy(IStrategy strategy) {
+		if (strategy != this.strategy) {
+			this.getPather().clearAvoids();
+		}
 		this.strategy = strategy;
 	}
 

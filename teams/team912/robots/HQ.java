@@ -12,6 +12,8 @@ public class HQ extends BaseRobot {
 		// TODO Auto-generated constructor stub
 	}
 
+	boolean keepSpawning = true;
+
 	@Override
 	public void run() throws GameActionException {
 		if (this.getControl().isActive()) {
@@ -24,7 +26,10 @@ public class HQ extends BaseRobot {
 						.add(direction);
 				obstacle = this.getControl().senseObjectAtLocation(location);
 			} while (obstacle != null);
-			this.getControl().spawn(direction);
+			if (keepSpawning && this.getControl().getTeamPower() > 50) {
+				this.getControl().spawn(direction);
+				//keepSpawning = false;
+			}
 		}
 	}
 
