@@ -9,8 +9,7 @@ class SwarmStrategy implements IStrategy {
 
 	@Override
 	public MapLocation getTarget(Mapper mapper) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.getEnemyHQLocation();
 	}
 
 	@Override
@@ -50,15 +49,14 @@ class SwarmStrategy implements IStrategy {
 	}
 
 	@Override
-	public boolean shouldAvoid(Team mineTeam) {
+	public boolean shouldAvoid(Team mineTeam, Team ownTeam) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean shouldDefuse(Team mineTeam) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean shouldDefuse(Team mineTeam, Team ownTeam) {
+		return mineTeam != ownTeam;
 	}
 
 }

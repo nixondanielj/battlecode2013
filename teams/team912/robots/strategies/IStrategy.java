@@ -21,7 +21,7 @@ public interface IStrategy {
 
 	void doAtTargetAction(RobotController c) throws GameActionException;
 
-	boolean shouldAvoid(Team mineTeam);
+	boolean shouldAvoid(Team mineTeam, Team ownTeam);
 
-	boolean shouldDefuse(Team mineTeam);
+	boolean shouldDefuse(Team mineTeam, Team ownTeam);
 }

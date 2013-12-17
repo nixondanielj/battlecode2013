@@ -26,7 +26,7 @@ public class Soldier extends BaseRobot {
 	@Override
 	public void run() throws GameActionException {
 		RobotController c = this.getControl();
-		this.setStrategy(StrategyFactory.get(null, this.getStrategy()));
+		this.setStrategy(StrategyFactory.get(null, this.getStrategy(), c));
 		if (c.isActive()) {
 			this.getStrategy().doPreMoveAction(c);
 			MapLocation target = this.getStrategy().getTarget(this.getMapper());
@@ -47,13 +47,13 @@ public class Soldier extends BaseRobot {
 		Direction dir = this.getPather().dirTo(target);
 		MapLocation proposedLoc = c.getLocation().add(dir);
 		Team mineTeam = c.senseMine(proposedLoc);
-		while (strategy.shouldAvoid(mineTeam)) {
+		while (strategy.shouldAvoid(mineTeam, c.getTeam())) {
 			this.getPather().avoid(proposedLoc.add(dir));
 			dir = this.getPather().dirTo(target);
 			proposedLoc = c.getLocation().add(dir);
 			mineTeam = c.senseMine(proposedLoc);
 		}
-		if (mineTeam != null && strategy.shouldDefuse(mineTeam)) {
+		if (mineTeam != null && strategy.shouldDefuse(mineTeam, c.getTeam())) {
 			c.defuseMine(c.getLocation().add(dir));
 		} else {
 			c.move(dir);
