@@ -8,7 +8,7 @@ public class StrategyFactory {
 		IStrategy strategy = oldStrategy;
 		if(strategy == null){
 			double rn = rc.getTeamPower() % 1;
-			if(rn <= .25){
+			if(rn <= .15){
 				strategy = new BaseDefenseStrategy();
 			} else {
 				strategy = new SwarmStrategy();

@@ -29,7 +29,7 @@ public class Soldier extends BaseRobot {
 		this.setStrategy(StrategyFactory.get(null, this.getStrategy(), c));
 		if (c.isActive()) {
 			this.getStrategy().doPreMoveAction(c);
-			MapLocation target = this.getStrategy().getTarget(this.getMapper());
+			MapLocation target = this.getStrategy().getTarget(this.getMapper(), this.getControl());
 			if (target.equals(c.getLocation())) {
 				this.getStrategy().doAtTargetAction(c);
 			} else {

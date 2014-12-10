@@ -2,15 +2,25 @@ package team912.robots.strategies;
 
 import team912.mapping.Mapper;
 import battlecode.common.GameActionException;
+import battlecode.common.GameObject;
 import battlecode.common.MapLocation;
+import battlecode.common.Robot;
 import battlecode.common.RobotController;
 import battlecode.common.Team;
 
 class BaseDefenseStrategy implements IStrategy {
 
 	@Override
-	public MapLocation getTarget(Mapper mapper) throws GameActionException {
-		return mapper.getClosestMineableLocation(mapper.getOwnHQLocation());
+	public MapLocation getTarget(Mapper mapper, RobotController rc) throws GameActionException {
+		GameObject[] nearbyEnemeies = rc.senseNearbyGameObjects(Robot.class, 10, Team.A);
+		if (nearbyEnemeies.length > 0)
+			return rc.senseLocationOf(nearbyEnemeies[0]);
+		MapLocation mineableLocation = mapper.getClosestMineableLocation(mapper.getOwnHQLocation());
+		if (mineableLocation == null)
+			return mapper.getOwnHQLocation().add(mapper.getDirToEnemyHQ(), 5);
+		if (rc.getTeamPower() < 50)
+			return mapper.getEnemyHQLocation();
+		return mineableLocation;
 	}
 
 	@Override
@@ -59,5 +69,4 @@ class BaseDefenseStrategy implements IStrategy {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

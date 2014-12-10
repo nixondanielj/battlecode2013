@@ -8,7 +8,7 @@ import battlecode.common.Team;
 public class BuilderStrategy implements IStrategy {
 
 	@Override
-	public MapLocation getTarget(Mapper mapper) {
+	public MapLocation getTarget(Mapper mapper, RobotController rc) {
 		// TODO Auto-generated method stub
 		return null;
 	}

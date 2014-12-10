@@ -7,7 +7,7 @@ import battlecode.common.RobotController;
 import battlecode.common.Team;
 
 public interface IStrategy {
-	MapLocation getTarget(Mapper mapper) throws GameActionException;
+	MapLocation getTarget(Mapper mapper, RobotController rc) throws GameActionException;
 	
 	int[] getMessage(RobotController rc);
 	
