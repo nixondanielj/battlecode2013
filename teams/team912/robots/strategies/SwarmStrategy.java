@@ -1,6 +1,7 @@
 package team912.robots.strategies;
 
 import team912.mapping.Mapper;
+import battlecode.common.Clock;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 import battlecode.common.Team;
@@ -9,6 +10,8 @@ class SwarmStrategy implements IStrategy {
 
 	@Override
 	public MapLocation getTarget(Mapper mapper) {
+		if (Clock.getRoundNum() < 200)
+			return mapper.getOwnHQLocation().add(mapper.getDirToEnemyHQ().rotateLeft(), 5);
 		return mapper.getEnemyHQLocation();
 	}
 
