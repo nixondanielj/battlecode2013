@@ -67,6 +67,6 @@ class BaseDefenseStrategy implements IStrategy {
 	@Override
 	public boolean shouldDefuse(Team mineTeam, Team ownTeam) {
 		// TODO Auto-generated method stub
-		return false;
+		return mineTeam != ownTeam;
 	}
 }
