@@ -26,10 +26,13 @@ public class FirstMapper extends BotComponent implements Mapper {
 			throws GameActionException {
 		// if the given location is mineable and unoccupied, skip everything and
 		// return it
-		if (!this.isMineable(location) || this.isOccupied(location)) {
-			List<MapLocation> potentialLocations = new ArrayList<MapLocation>();
-			for (int x = location.x - 3; x <= location.x + 3; x++) {
-				for (int y = location.y - 3; y <= location.y + 3; y++) {
+		if(this.isMineable(location) && !this.isOccupied(location)){
+			return location;
+		}
+		List<MapLocation> potentialLocations = new ArrayList<MapLocation>();
+		for(int range = 1; potentialLocations.size() < 5; range++){
+			for (int x = location.x - range; x <= location.x + range; x++) {
+				for (int y = location.y - range; y <= location.y + range; y++) {
 					MapLocation potentialLoc = new MapLocation(x, y);
 					if (this.getControl().canSenseSquare(potentialLoc)) {
 						// if location is mineable and unoccupied
@@ -40,8 +43,8 @@ public class FirstMapper extends BotComponent implements Mapper {
 					}
 				}
 			}
-			location = getClosestTo(location, potentialLocations);
 		}
+		location = getClosestTo(location, potentialLocations);
 		return location;
 	}
 
