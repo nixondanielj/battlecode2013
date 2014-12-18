@@ -1,16 +1,22 @@
 package team912.robots.strategies;
 
 import team912.mapping.Mapper;
+import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 import battlecode.common.Team;
 
 class SaboteurStrategy implements IStrategy {
+	
+	private int mineAvoidanceChecks = 0;
 
 	@Override
-	public MapLocation getTarget(Mapper mapper) {
-		// TODO Auto-generated method stub
-		return null;
+	public MapLocation getTarget(Mapper mapper) throws GameActionException {
+		MapLocation closestEnemyBuilding =  mapper.getClosestEnemyBuilding();
+		if(closestEnemyBuilding == null){
+			return mapper.getEnemyHQLocation();
+		}
+		return closestEnemyBuilding;
 	}
 
 	@Override
@@ -27,8 +33,7 @@ class SaboteurStrategy implements IStrategy {
 
 	@Override
 	public void doPostMoveAction(RobotController rc) {
-		// TODO Auto-generated method stub
-
+		mineAvoidanceChecks = 0;
 	}
 
 	@Override
@@ -52,14 +57,13 @@ class SaboteurStrategy implements IStrategy {
 
 	@Override
 	public boolean shouldAvoid(Team mineTeam, Team ownTeam) {
-		// TODO Auto-generated method stub
-		return false;
+		mineAvoidanceChecks++;
+		return mineTeam != ownTeam;
 	}
 
 	@Override
 	public boolean shouldDefuse(Team mineTeam, Team ownTeam) {
-		// TODO Auto-generated method stub
-		return false;
+		return mineAvoidanceChecks < 3 && mineTeam != ownTeam;
 	}
 
 }

@@ -1,13 +1,16 @@
 package team912.mapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import team912.BotComponent;
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
+import battlecode.common.GameObject;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
+import battlecode.common.Team;
 
 public class FirstMapper extends BotComponent implements Mapper {
 
@@ -44,9 +47,19 @@ public class FirstMapper extends BotComponent implements Mapper {
 		}
 		return location;
 	}
+	
+	public MapLocation getClosestTo(MapLocation start, MapLocation... potentialLocations){
+		if(potentialLocations.length == 1){
+			return potentialLocations[0];
+		}
+		return getClosestTo(start, Arrays.asList(potentialLocations));
+	}
 
 	public MapLocation getClosestTo(MapLocation startLocation,
 			Iterable<MapLocation> potentialLocations) {
+		if(potentialLocations == null){
+			return null;
+		}
 		MapLocation closest = null;
 		int shortestDist = 0;
 		for (MapLocation location : potentialLocations) {
@@ -58,12 +71,14 @@ public class FirstMapper extends BotComponent implements Mapper {
 				MapLocation myLoc = this.getControl().getLocation();
 				int distToLoc = myLoc.distanceSquaredTo(location);
 				int distToClosest = myLoc.distanceSquaredTo(closest);
-				if(distToLoc < distToClosest){
+				if (distToLoc < distToClosest) {
 					closest = location;
-				} else if (distToLoc == distToClosest){
-					distToLoc = location.distanceSquaredTo(this.getEnemyHQLocation());
-					distToClosest = closest.distanceSquaredTo(this.getEnemyHQLocation());
-					if(distToLoc < distToClosest){
+				} else if (distToLoc == distToClosest) {
+					distToLoc = location.distanceSquaredTo(this
+							.getEnemyHQLocation());
+					distToClosest = closest.distanceSquaredTo(this
+							.getEnemyHQLocation());
+					if (distToLoc < distToClosest) {
 						closest = location;
 					}
 				}
@@ -87,6 +102,42 @@ public class FirstMapper extends BotComponent implements Mapper {
 	public Direction getDirToOwnHQ() {
 		return this.getControl().getLocation()
 				.directionTo(this.getOwnHQLocation());
+	}
+
+	@Override
+	public MapLocation getClosestNonAlliedBuilding() throws GameActionException {
+		MapLocation[] nonAlliedEncampments = null;
+		for (int range = 20; (nonAlliedEncampments == null || nonAlliedEncampments.length == 0) && range < 100; range += 5) {
+			nonAlliedEncampments = getControl().senseEncampmentSquares(
+				getControl().getLocation(), range, Team.NEUTRAL);
+		}
+		if (nonAlliedEncampments.length == 1) {
+			return nonAlliedEncampments[0];
+		}
+		return getClosestTo(getControl().getLocation(), nonAlliedEncampments);
+	}
+
+	@Override
+	/***
+	 * Gets the closest NON HQ enemy building location or null if no enemy encampments are within sensor range
+	 */
+	public MapLocation getClosestEnemyBuilding() throws GameActionException {
+		List<MapLocation> enemyEncampments = new ArrayList<MapLocation>();
+		for (int range = 20; (enemyEncampments == null || enemyEncampments.size() == 0) && range < 100; range += 5) {
+			MapLocation[] potentialEncampments = getControl().senseEncampmentSquares(
+				getControl().getLocation(), range, Team.NEUTRAL);
+			for(int i = potentialEncampments.length - 1; i >=0; i--){
+				MapLocation loc = potentialEncampments[i];
+				// if we can sense the square, and it is not the enemy HQ
+				if(getControl().canSenseSquare(loc) && !loc.equals(getEnemyHQLocation())){
+					GameObject objectAtLoc = getControl().senseObjectAtLocation(loc);
+					if(objectAtLoc != null && objectAtLoc.getTeam() != getControl().getTeam()){
+						enemyEncampments.add(loc);
+					}
+				}
+			}
+		}
+		return getClosestTo(getControl().getLocation(), enemyEncampments);
 	}
 
 }

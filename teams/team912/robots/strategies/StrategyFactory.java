@@ -8,8 +8,10 @@ public class StrategyFactory {
 		IStrategy strategy = oldStrategy;
 		if(strategy == null){
 			double rn = rc.getTeamPower() % 1;
-			if(rn <= .25){
+			if(rn <= .2){
 				strategy = new BaseDefenseStrategy();
+			} else if (rn <= .3){
+				strategy = new SaboteurStrategy();
 			} else {
 				strategy = new SwarmStrategy();
 			}
