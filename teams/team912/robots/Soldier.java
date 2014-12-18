@@ -47,7 +47,7 @@ public class Soldier extends BaseRobot {
 		Direction dir = this.getPather().dirTo(target);
 		MapLocation proposedLoc = c.getLocation().add(dir);
 		Team mineTeam = c.senseMine(proposedLoc);
-		while (strategy.shouldAvoid(mineTeam, c.getTeam())) {
+		while (strategy.shouldAvoid(mineTeam, c.getTeam()) && !strategy.shouldDefuse(mineTeam, c.getTeam())) {
 			this.getPather().avoid(proposedLoc.add(dir));
 			dir = this.getPather().dirTo(target);
 			proposedLoc = c.getLocation().add(dir);
